@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <div class="col col-md-4">
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="productName" class="form-label">Product name</label>
+                    <input type="text" class="form-control" id="productName" name="productName">
+                    <div class="mb-3">
+                        <label for="productPrice" class="form-label">Product price</label>
+                        <input type="number" class="form-control" id="productPrice" name="productPrice">
+                    </div>
+                    <div class="mb-3">
+                        <label for="imageLink" class="form-label">Product image link</label>
+                        <input type="text" class="form-control" id="imageLink" name="imageLink">
+                    </div>
+                    <button type="submit" class="btn btn-dark">Add product</button>
+            </form>
+        </div>
+        <div class="col col-md-8">
+            {% for products in product.name%}
+            <div class="card" style="width: 18rem;">
+                <img src="{{product.image}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{product.name}}</h5>
+                    </h5>
+                    <p class="card-text">{{product.price}}</p>
+                    <a href="#" class="btn btn-primary">Add to cart</a>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
