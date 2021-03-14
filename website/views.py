@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, request, url_for, flash
+from flask import Blueprint, render_template, request, url_for, flash, redirect, jsonify
 from . import db
 from .models import Product
+import simplejson as json
 views = Blueprint('views', __name__)
 
 
@@ -11,7 +12,8 @@ def home():
 
 @views.route('/shop', methods=["GET", "POST"])
 def shop():
-    return render_template("products.html")
+    products = Product.query.all()
+    return render_template("products.html", products=products)
 
 
 @views.route('/admin', methods=["GET", "POST"])
@@ -20,15 +22,21 @@ def admin_panel():
         product_name = request.form.get('productName')
         product_price = request.form.get('productPrice')
         product_image = request.form.get('imageLink')
+        product = Product(name=product_name,
+                          price=product_price, image=product_image)
+        db.session.add(product)
+        db.session.commit()
+        flash('Product added!', category='success')
+    products = Product.query.all()
+    return render_template("admin.html", products=products)
 
-        product_name = Product.query.filter_by(name=product_name)
-        if product_name:
-            flash('Product already exists', category='error')
-        else:
-            product = Product(name=product_name,
-                              price=product_price, image=product_image)
-            db.session.add(product)
-            db.session.comit()
-            flash('Product added!', category='success')
-            return redirect(url_for('views.admin_panel'))
-    return render_template("admin.html")
+
+@views.route('/delete-product', methods=['POST'])
+def delete_product():
+    product = json.loads(request.data)
+    productId = product['productId']
+    product = Product.query.get(productId)
+    if product:
+        db.session.delete(product)
+        db.session.commit()
+    return Jsonify({})

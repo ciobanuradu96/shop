@@ -3,40 +3,21 @@
 
 <div class="container">
     <div class="row">
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="https://s13emagst.akamaized.net/products/29573/29572758/images/res_3549bbc9285ca961936327f09c06d442.jpg"
-                    class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Lantisor Cu Pandantiv Attack On Titan - Wings of Freedom , Albastru, Albastru
-                    </h5>
-                    <p class="card-text">24.39 Lei</p>
-                    <a href="#" class="btn btn-primary">Add to cart</a>
+        {% for product in products%}
+        <div class="col-md-3">
+            <div class="col-md-4 ">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{product.image}}" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{product.name}}</h5>
+                        </h5>
+                        <p class="card-text">{{product.price}} RON</p>
+                        <a href="#" class="btn btn-primary">Add to cart</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="https://s13emagst.akamaized.net/products/25138/25137399/images/res_fc7b201c444d76173002dcd3897c23bb.jpg?width=200&height=200&hash=AFDED65E4BC8271077D243D7EF51EEE2"
-                    class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Breloc Luffy SD One Piece ABYstyle, PVC, 5.5x4 cm</h5>
-                    <p class="card-text">21. 44 Lei</p>
-                    <a href="#" class="btn btn-primary">Add to cart</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="https://s13emagst.akamaized.net/products/8182/8181593/images/res_c24887de7a88a3b1c14114edeee5f0e4.jpg"
-                    class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Pandantiv Medalion Lantisor Naruto</h5>
-                    <p class="card-text">36.59 Lei</p>
-                    <a href="#" class="btn btn-primary">Add to cart</a>
-                </div>
-            </div>
-        </div>
+        {%endfor%}
 
     </div>
 </div>
