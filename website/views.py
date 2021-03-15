@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, url_for, flash, redirect, jsonify
+from flask.globals import session
 from . import db
 from .models import Product
 import simplejson as json
@@ -40,3 +41,17 @@ def delete_product():
         db.session.delete(product)
         db.session.commit()
     return Jsonify({})
+
+@views.route('/cart', methods=['POST','GET'])
+def cart():
+    return render_template('cart.html',cart_item=cart_item)
+
+@views.route('/add-to-cart',methods=['POST'])
+def add_to_cart():
+    product = json.loads(request.data)
+    productId = product['productId']
+    cart_item = Product.query.filter_by(id=productId).first()
+    
+    
+    return cart_item    
+
